@@ -9,14 +9,23 @@
     --gray-800: #202024;
     --gray-900: #121214;
 
+    --green-300: #00B37E;
     --green-500: #00875f;
+
+    --red-500: #F75A68;
+
+}
+
+:focus {
+    outline: transparent;
+    box-shadow: 0 0 0 2px var(--green-500);
 }
 
 * {
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
-}
+    box-sizing: border-box; /*exempre os elementos para caber no container*/
+} 
 
 body {
     background: var(--gray-900);
