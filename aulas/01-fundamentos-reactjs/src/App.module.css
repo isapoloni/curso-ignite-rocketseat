@@ -8,5 +8,22 @@
     grid-template-columns: 256px 1fr;
     gap: 2rem;
     align-items: flex-start;
-    
 }
+
+@media (max-width: 768px) {
+    html {
+        font-size: 87.5%;
+    }
+
+    .wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 
+
+    o rem é utilizado com base no font-size do aparelho
+    16 -> 100% 
+    14 -> x
+
+*/
