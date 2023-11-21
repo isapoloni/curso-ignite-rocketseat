@@ -8,9 +8,6 @@ import styles from './App.module.css'
 import './global.css'
 
 
-
-//VictorGVC
-
 const posts = [
   {
     id: 1,
@@ -20,13 +17,12 @@ const posts = [
       role: 'Front End Web Developer'
     },
     content: [
-      { type: 'paragraph', content: 'Fala galeraa 👋' },
-      { type: 'paragraph', content: 'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀' },
+      { type: 'paragraph', content: 'Olá pessoal! 👋' },
+      { type: 'paragraph', content: 'Estou animada para compartilhar o meu mais recente projeto no meu portfólio. É um aplicativo de gestão de consultas médicas chamado DoctorCare 🚀' },
       { type: 'link', content: 'jane.design/doctorcare' }
     ],
     publishedAt: new Date('2023-11-17 16:00:30')
   },
-
   {
     id: 2,
     author: {
@@ -35,8 +31,8 @@ const posts = [
       role: 'Back End Developer'
     },
     content: [
-      { type: 'paragraph', content: 'Fala galeraa 👋' },
-      { type: 'paragraph', content: 'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀' },
+      { type: 'paragraph', content: 'E aí, pessoal! 👋' },
+      { type: 'paragraph', content: 'Acabei de concluir mais um projeto para o meu portfólio. É um sistema de gerenciamento de banco de dados criado durante o NLW Return, um evento incrível promovido pela Rocketseat. O projeto se chama DoctorCare 🚀' },
       { type: 'link', content: 'jane.design/doctorcare' }
     ],
     publishedAt: new Date('2023-11-22 10:25:30')
