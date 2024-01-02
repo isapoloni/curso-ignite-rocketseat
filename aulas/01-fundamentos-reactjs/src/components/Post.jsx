@@ -1,4 +1,4 @@
-import { format, formatDistanceToNow} from 'date-fns'
+import { format, formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 import { Avatar } from './Avatar'
 import { Comment } from './Comment'
@@ -13,32 +13,51 @@ import { useState } from 'react'
 
 
 
-export function Post({ author, publishedAt, content}) {
+export function Post({ author, publishedAt, content }) {
 
     //desestruturação do state, o setX é usado para causar alterações no estado e avisa ao react que foi feito tal alteração para ler
     const [comments, setComments] = useState([
-        1,
-        2,
+        'Post muito bacana, hein?!',
     ]);
+
+    const [newCommentText, setNewCommentText] = useState('')
 
     const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'ás' HH:mm'h'", {
         locale: ptBR
     });
-
+    
     const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
         locale: ptBR,
         addSuffix: true,
     });
-
+    
+    
     function handleCreateNewComment() {
         event.preventDefault()
 
         //imutabilidade
-
         //spread operator = ele le o valor da variavél comment e copia 
+        setComments([...comments, newCommentText]);
+        setNewCommentText('')
+    }
 
-        setComments([...comments, comments.length + 1]);
+    function handleNewCommentChange() {
+        event.target.setCustomValidity('');
+        setNewCommentText(event.target.value)
+    }
 
+    function handleNewCommentInvalid() {
+        event.target.setCustomValidity('Esse campo é obrigatório!');
+    }
+
+    function deleteComment(commentToDelete) {
+        // imutabilidade -> as variáveis não sofrem mutação, nós criamos um novo valor (um novo espaço na memória), dessa forma para o react é mais rápido analisar um novo espaço, doq um espaço ja existente
+
+        const commentsWithoutDeleteOne = comments.filter(comment => {
+            return comment !== commentToDelete;
+        })
+        
+        setComments(commentsWithoutDeleteOne);
     }
 
     /*
@@ -51,6 +70,9 @@ export function Post({ author, publishedAt, content}) {
     
         }).format(publishedAt);
     */
+
+    const isNewCommentEmpty = newCommentText.length === 0;
+
 
     return (
         <article className={styles.post}>
@@ -72,27 +94,39 @@ export function Post({ author, publishedAt, content}) {
             <div className={styles.content}>
                 {content.map(line => {
                     if (line.type === 'paragraph') {
-                        return <p>{line.content}</p>;
+                        return <p key={line.content}>{line.content}</p>;
                     } else if (line.type === 'link') {
-                        return <p><a href="#">{line.content}</a></p>;
+                        return <p key={line.content}><a href="#">{line.content}</a></p>;
                     }
                 })}
             </div>
 
             <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
                 <strong>Deixe seu feedback</strong>
+
                 <textarea
+                    name='comment'
                     placeholder='Deixe um comentário'
+                    value={newCommentText}
+                    onChange={handleNewCommentChange}
+                    onInvalid={handleNewCommentInvalid}
+                    required
                 />
 
                 <footer>
-                    <button type='submit'>Publicar</button>
+                    <button type='submit' disabled={isNewCommentEmpty}>Publicar</button>
                 </footer>
             </form>
 
             <div className={styles.commentList}>
-                {comments.map( comment => {
-                    return <Comment />
+                {comments.map(comment => {
+                    return (
+                        <Comment 
+                            key={comment} 
+                            content={comment} 
+                            onDeleteComment={deleteComment} 
+                        />
+                    )
                 })}
             </div>
         </article>
